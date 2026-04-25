@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import axios from "axios";
-import config from "./config";
+import config from "../config";
 
 const BookNow = () => {
   const [formData, setFormData] = useState({

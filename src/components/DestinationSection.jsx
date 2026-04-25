@@ -6,7 +6,7 @@ import "swiper/css";
 import "swiper/css/effect-coverflow";
 import "swiper/css/pagination";
 import { Link } from "react-router-dom";
-import config from "./config";
+import config from "../config";
 
 const DestinationSection = () => {
   const [tours, setTours] = useState([]);

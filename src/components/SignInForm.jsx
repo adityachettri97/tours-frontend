@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import axios from "axios";
 import { useNavigate, Link } from "react-router-dom";
-import config from "./config";
+import config from "../config";
 
 const SignInForm = () => {
   const [formData, setFormData] = useState({

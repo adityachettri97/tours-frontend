@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import LogoutButton from "./LogoutButton";
-import config from "./config";
+import config from "../config";
 
 const TourList = () => {
   const [tours, setTours] = useState([]);
