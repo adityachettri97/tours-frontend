@@ -1,4 +1,5 @@
 import React, { useState, useRef, useEffect } from "react";
+import config from "../config";
 
 const ChatWidget = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -40,7 +41,7 @@ const ChatWidget = () => {
         content: m.content,
       }));
 
-      const response = await fetch("https://tours-backend-kg2g.onrender.com/api/chat", {
+      const response = await fetch(`${config.API_URL}/api/chat`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ messages: apiMessages }),

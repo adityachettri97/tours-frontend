@@ -6,6 +6,7 @@ import "swiper/css";
 import "swiper/css/effect-coverflow";
 import "swiper/css/pagination";
 import { Link } from "react-router-dom";
+import config from "./config";
 
 const DestinationSection = () => {
   const [tours, setTours] = useState([]);
@@ -13,7 +14,7 @@ const DestinationSection = () => {
   useEffect(() => {
     const fetchTours = async () => {
       try {
-        const res = await axios.get("https://tours-backend-kg2g.onrender.com/api/tours");
+        const res = await axios.get(`${config.API_URL}/api/tours`);
         setTours(res.data);
       } catch (err) {
         console.error(err);
@@ -57,7 +58,7 @@ const DestinationSection = () => {
               {(Array.isArray(tour.imageUrls) ? tour.imageUrls : [tour.imageUrls]).map((url, index) => (
                 <SwiperSlide key={index}>
                   <img
-                    src={url?.startsWith("http") ? url : `https://tours-backend-kg2g.onrender.com${url}`}
+                    src={url?.startsWith("http") ? url : `${config.API_URL}${url}`}
                     alt={`${tour.title}-${index}`}
                     className="w-full h-60 object-cover rounded"
                   />

@@ -2,6 +2,7 @@
 import React, { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import axios from "axios";
+import config from "./config";
 
 const EditTour = () => {
   const { id } = useParams();
@@ -14,7 +15,7 @@ const EditTour = () => {
 
   useEffect(() => {
     const fetchTour = async () => {
-      const res = await axios.get(`https://tours-backend-kg2g.onrender.com/api/tours`);
+      const res = await axios.get(`${config.API_URL}/api/tours`);
       const tour = res.data.find((t) => t._id === id);
       if (tour) {
         setTitle(tour.title);
@@ -47,7 +48,7 @@ const EditTour = () => {
     newImages.forEach((img) => formData.append("images", img));
 
     try {
-      await axios.put(`https://tours-backend-kg2g.onrender.com/api/tours/${id}`, formData, {
+      await axios.put(`${config.API_URL}/api/tours/${id}`, formData, {
         headers: { "Content-Type": "multipart/form-data" },
       });
       navigate("/tours");
@@ -92,7 +93,7 @@ const EditTour = () => {
           ) : (
             existingImageUrls.map((url, index) => (
               <div key={index} className="flex items-center mb-3">
-                <img src={`https://tours-backend-kg2g.onrender.com${url}`} alt="tour" className="w-24 h-30 object-cover mr-4 rounded border" />
+                <img src={`${config.API_URL}${url}`} alt="tour" className="w-24 h-30 object-cover mr-4 rounded border" />
                 <button type="button" onClick={() => removeExistingImage(url)} className="text-red-600 hover:text-red-800">
                   Remove
                 </button>

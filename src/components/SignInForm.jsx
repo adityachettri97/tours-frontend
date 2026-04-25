@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import axios from "axios";
 import { useNavigate, Link } from "react-router-dom";
+import config from "./config";
 
 const SignInForm = () => {
   const [formData, setFormData] = useState({
@@ -17,7 +18,7 @@ const SignInForm = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const res = await axios.post("https://tours-backend-kg2g.onrender.com/api/auth/login", formData);
+      const res = await axios.post(`${config.API_URL}/api/auth/login`, formData);
       localStorage.setItem("token", res.data.token);
       setMessage("✅ Logged in successfully!");
       navigate("/tours");

@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import axios from "axios";
+import config from "./config";
 
 const BookNow = () => {
   const [formData, setFormData] = useState({
@@ -31,7 +32,7 @@ const BookNow = () => {
     // Fetch available packages
     const fetchPackages = async () => {
       try {
-        const response = await axios.get("https://tours-backend-kg2g.onrender.com/api/tours");
+        const response = await axios.get(`${config.API_URL}/api/tours`);
         setPackages(response.data);
       } catch (error) {
         console.error("Error fetching packages:", error);

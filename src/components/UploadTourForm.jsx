@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import config from "./config";
 
 const UploadTourForm = () => {
   const navigate = useNavigate();
@@ -29,7 +30,7 @@ const UploadTourForm = () => {
     imageFile.forEach((file) => data.append("images", file));
 
     try {
-      await axios.post("https://tours-backend-kg2g.onrender.com/api/tours", data, {
+      await axios.post(`${config.API_URL}/api/tours`, data, {
         headers: {
           "Content-Type": "multipart/form-data",
         },

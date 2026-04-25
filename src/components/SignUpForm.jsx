@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import axios from "axios";
 import { useNavigate, Link } from "react-router-dom";
+import config from "./config";
 
 function SignUpForm() {
   const [formData, setFormData] = useState({
@@ -26,7 +27,7 @@ function SignUpForm() {
     }
 
     try {
-      await axios.post("https://tours-backend-kg2g.onrender.com/api/auth/register", {
+      await axios.post(`${config.API_URL}/api/auth/register`, {
         username: formData.username,
         email: formData.email,
         password: formData.password,

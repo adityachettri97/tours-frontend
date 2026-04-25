@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import LogoutButton from "./LogoutButton"; // 🔁 Import this
+import LogoutButton from "./LogoutButton";
+import config from "./config";
 
 const TourList = () => {
   const [tours, setTours] = useState([]);
@@ -9,7 +10,7 @@ const TourList = () => {
 
   const fetchTours = async () => {
     try {
-      const res = await axios.get("https://tours-backend-kg2g.onrender.com/api/tours");
+      const res = await axios.get(`${config.API_URL}/api/tours`);
       setTours(res.data);
     } catch (err) {
       console.error("Error fetching tours", err);
@@ -22,7 +23,7 @@ const TourList = () => {
 
   const handleDelete = async (id) => {
     try {
-      await axios.delete(`https://tours-backend-kg2g.onrender.com/api/tours/${id}`);
+      await axios.delete(`${config.API_URL}/api/tours/${id}`);
       fetchTours();
     } catch (err) {
       console.error("Error deleting tour", err);
@@ -52,12 +53,7 @@ const TourList = () => {
             {tour.imageUrls && tour.imageUrls.length > 0 && (
               <div className="flex flex-wrap gap-4 mb-4">
                 {tour.imageUrls.map((url, index) => (
-                  <img
-                    key={index}
-                    src={`https://tours-backend-kg2g.onrender.com${url}`}
-                    alt={`tour-${index}`}
-                    className="w-40 h-30 object-cover rounded"
-                  />
+                  <img key={index} src={`${config.API_URL}${url}`} alt={`tour-${index}`} className="w-40 h-30 object-cover rounded" />
                 ))}
               </div>
             )}
