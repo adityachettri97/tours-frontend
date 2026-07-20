@@ -111,7 +111,7 @@ const BlogPage = () => {
                 <div className="p-6">
                   <h2 className="text-xl font-semibold mb-2">{blog.title}</h2>
                   <p className="text-gray-500 text-sm mb-4">{blog.date}</p>
-                  <p className="text-gray-700 mb-4">{blog.content}</p>
+                  <p className="text-gray-700 mb-4">{blog.content.length > 120 ? blog.content.slice(0, 120) + "..." : blog.content}</p>
                   <a href={blog.href || `/blogPage/${blog.slug}`} className="text-blue-600 hover:underline font-medium inline-flex items-center gap-1">
                     Read More <ArrowForwardIcon fontSize="small" />
                   </a>

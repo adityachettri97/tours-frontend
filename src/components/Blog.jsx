@@ -48,7 +48,9 @@ const Blog = () => {
         {posts.map((post) => (
           <div key={post.id}>
             <h3 className="text-xl font-semibold mb-2">{post.title}</h3>
-            <p className="text-gray-700 mb-2">{post.description}</p>
+            <p className="text-gray-700 mb-2">
+              {post.description.length > 100 ? post.description.slice(0, 100) + "..." : post.description}
+            </p>
             <a href={post.href} className="text-blue-600 hover:underline">
               Read More
             </a>

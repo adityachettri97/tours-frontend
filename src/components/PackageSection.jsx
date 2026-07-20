@@ -65,7 +65,7 @@ const PackageSection = () => {
               <img src={pkg.img || getImageUrl(pkg.imageUrl)} alt={pkg.title} className="w-full h-48 object-cover" />
               <div className="p-5">
                 <h3 className="text-xl font-semibold mb-2">{pkg.title}</h3>
-                <p className="text-gray-700 mb-3">{pkg.desc}</p>
+                <p className="text-gray-700 mb-3">{pkg.desc || pkg.description}</p>
                 <div className="flex items-center justify-between">
                   <span className="text-blue-600 font-bold">{pkg.price}</span>
                   <button onClick={() => navigate("/book-now")} className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition">

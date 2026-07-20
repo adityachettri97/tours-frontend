@@ -47,11 +47,9 @@ const AboutSection = () => {
         {/* Right Content */}
         <div>
           <h2 className="text-3xl font-bold mb-4">{about.title}</h2>
-          {about.description.split("\n\n").map((paragraph, i) => (
-            <p key={i} className="text-gray-700 mb-4">
-              {paragraph}
-            </p>
-          ))}
+          <p className="text-gray-700 mb-4">
+            {about.description.length > 200 ? about.description.slice(0, 200) + "..." : about.description}
+          </p>
           <button onClick={() => navigate("/about")} className="bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700 transition">
             Learn More
           </button>
