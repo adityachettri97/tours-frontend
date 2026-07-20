@@ -34,7 +34,7 @@ const Navbar = () => {
   return (
     <>
       {/* 🔹 Top Bar */}
-      <div className="fixed top-0 left-0 w-full bg-gray-800 text-white text-sm px-4 md:px-6  lg:py-2 md:py-2 sm:py-0 flex justify-between items-center z-50">
+      <div className="fixed top-0 left-0 w-full bg-gray-800 text-white text-sm px-2 md:px-6  lg:py-2 md:py-2 sm:py-0 flex justify-between items-center z-50">
         <div className="flex flex-col sm:flex-row space-y-1 sm:space-y-0 sm:space-x-6 items-start sm:items-center">
           <span className="flex items-center space-x-1">
             <PhoneIcon fontSize="small" />
