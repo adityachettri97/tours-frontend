@@ -102,12 +102,15 @@ const ChatWidget = () => {
   };
 
   return (
-    <div className="fixed bottom-6 right-6 z-50 flex flex-col items-end">
+    <div
+      className="flex flex-col items-end"
+      style={{ position: "fixed", bottom: "1rem", right: "1rem", zIndex: 1050 }}
+    >
       {/* Chat window */}
       {isOpen && (
         <div
-          className="mb-4 w-80 sm:w-96 bg-white rounded-2xl shadow-2xl flex flex-col overflow-hidden border border-gray-200"
-          style={{ height: "480px" }}
+          className="mb-4 bg-white rounded-2xl shadow-2xl flex flex-col overflow-hidden border border-gray-200"
+          style={{ width: "min(92vw, 24rem)", height: "min(70vh, 480px)" }}
         >
           {/* Header */}
           <div className="bg-blue-600 px-4 py-3 flex items-center justify-between">
