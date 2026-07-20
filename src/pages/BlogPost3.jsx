@@ -2,6 +2,7 @@ import React from "react";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import BlogImg3 from "../images/sikkim2.jpeg";
+import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 
 const BlogPost3 = () => {
   return (
@@ -118,9 +119,9 @@ const BlogPost3 = () => {
           <div className="mt-10">
             <a
               href="/blogPage"
-              className="inline-block text-blue-600 hover:underline font-medium text-base"
+              className="inline-flex items-center gap-1 text-blue-600 hover:underline font-medium text-base"
             >
-              ← Back to Blog
+              <ArrowBackIcon fontSize="small" /> Back to Blog
             </a>
           </div>
         </div>

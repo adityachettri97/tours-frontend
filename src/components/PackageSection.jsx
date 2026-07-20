@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import config from "../config";
+import getImageUrl from "../utils/getImageUrl";
 
 // ✅ Import images directly from src/images
 import Sikkim from "../images/Sikkim.jpg";
@@ -37,7 +39,7 @@ const PackageSection = () => {
   useEffect(() => {
     const fetchPackages = async () => {
       try {
-        const response = await axios.get("/api/packages");
+        const response = await axios.get(`${config.API_URL}/api/packages`);
         setPackages(response.data.length ? response.data : fallbackPackages);
       } catch (error) {
         console.error("Error fetching packages:", error);
@@ -60,7 +62,7 @@ const PackageSection = () => {
         <div className="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto">
           {packages.map((pkg, i) => (
             <div key={i} className="bg-white rounded-2xl shadow-md overflow-hidden hover:shadow-lg transition">
-              <img src={pkg.img} alt={pkg.title} className="w-full h-48 object-cover" />
+              <img src={pkg.img || getImageUrl(pkg.imageUrl)} alt={pkg.title} className="w-full h-48 object-cover" />
               <div className="p-5">
                 <h3 className="text-xl font-semibold mb-2">{pkg.title}</h3>
                 <p className="text-gray-700 mb-3">{pkg.desc}</p>

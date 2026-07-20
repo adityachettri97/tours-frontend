@@ -1,5 +1,7 @@
 import React, { useState, useRef, useEffect } from "react";
 import config from "../config";
+import CloseIcon from "@mui/icons-material/Close";
+import ChatBubbleOutlineIcon from "@mui/icons-material/ChatBubbleOutline";
 
 const ChatWidget = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -116,8 +118,8 @@ const ChatWidget = () => {
                 <p className="text-blue-200 text-xs">{isStreaming ? "Typing..." : "Online"}</p>
               </div>
             </div>
-            <button onClick={() => setIsOpen(false)} className="text-white/80 hover:text-white text-xl leading-none">
-              ×
+            <button onClick={() => setIsOpen(false)} className="text-white/80 hover:text-white leading-none">
+              <CloseIcon fontSize="small" />
             </button>
           </div>
 
@@ -172,18 +174,7 @@ const ChatWidget = () => {
         className="w-14 h-14 bg-blue-600 hover:bg-blue-700 text-white rounded-full shadow-lg flex items-center justify-center transition-transform hover:scale-105 active:scale-95"
         aria-label="Open travel assistant chat"
       >
-        {isOpen ? (
-          <span className="text-2xl leading-none">×</span>
-        ) : (
-          <svg xmlns="http://www.w3.org/2000/svg" className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth={2}
-              d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"
-            />
-          </svg>
-        )}
+        {isOpen ? <CloseIcon fontSize="medium" /> : <ChatBubbleOutlineIcon fontSize="medium" />}
       </button>
     </div>
   );

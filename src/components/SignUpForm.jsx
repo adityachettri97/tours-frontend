@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import axios from "axios";
 import { useNavigate, Link } from "react-router-dom";
 import config from "../config";
+import PasswordInput from "./PasswordInput";
 
 function SignUpForm() {
   const [formData, setFormData] = useState({
@@ -9,8 +10,10 @@ function SignUpForm() {
     email: "",
     password: "",
     confirmPassword: "",
+    adminCode: "",
   });
   const [message, setMessage] = useState("");
+  const [success, setSuccess] = useState(false);
   const navigate = useNavigate();
 
   const handleChange = (e) => {
@@ -19,10 +22,12 @@ function SignUpForm() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setMessage("");
+    setSuccess(false);
 
-    // ✅ Client-side confirm password check
+    // Client-side confirm password check
     if (formData.password !== formData.confirmPassword) {
-      setMessage("❌ Passwords do not match.");
+      setMessage("Passwords do not match.");
       return;
     }
 
@@ -31,19 +36,23 @@ function SignUpForm() {
         username: formData.username,
         email: formData.email,
         password: formData.password,
+        adminCode: formData.adminCode,
       });
 
-      setMessage("✅ Registered successfully! Now sign in.");
+      setSuccess(true);
+      setMessage("Registered successfully! Redirecting to sign in...");
       setFormData({
         username: "",
         email: "",
         password: "",
         confirmPassword: "",
+        adminCode: "",
       });
-      navigate("/signin");
+      setTimeout(() => navigate("/signin"), 1200);
     } catch (err) {
       console.error(err);
-      setMessage("❌ Registration failed.");
+      const backendMessage = err.response?.data?.message;
+      setMessage(backendMessage || "Registration failed.");
     }
   };
 
@@ -69,21 +78,18 @@ function SignUpForm() {
             required
             className="w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:ring focus:ring-blue-200"
           />
-          <input
-            name="password"
-            type="password"
-            placeholder="Password"
+          <PasswordInput name="password" placeholder="Password" value={formData.password} onChange={handleChange} />
+          <PasswordInput
+            name="confirmPassword"
+            placeholder="Confirm Password"
+            value={formData.confirmPassword}
             onChange={handleChange}
-            value={formData.password}
-            required
-            className="w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:ring focus:ring-blue-200"
           />
           <input
-            name="confirmPassword"
-            type="password"
-            placeholder="Confirm Password"
+            name="adminCode"
+            placeholder="Admin Code"
             onChange={handleChange}
-            value={formData.confirmPassword}
+            value={formData.adminCode}
             required
             className="w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:ring focus:ring-blue-200"
           />
@@ -93,7 +99,11 @@ function SignUpForm() {
         </form>
 
         {/* Message */}
-        {message && <p className="mt-4 text-center text-sm text-red-600">{message}</p>}
+        {message && (
+          <div className={`alert ${success ? "alert-success" : "alert-danger"} mt-4 mb-0 text-center py-2`} role="alert">
+            {message}
+          </div>
+        )}
 
         <p className="mt-4 text-center text-sm text-gray-600">
           Already signed up?{" "}

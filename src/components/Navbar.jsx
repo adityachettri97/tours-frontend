@@ -1,6 +1,8 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import axios from "axios";
 import { Link } from "react-router-dom";
 import Logo from "../images/logo.png";
+import config from "../config";
 import MenuIcon from "@mui/icons-material/Menu";
 import CloseIcon from "@mui/icons-material/Close";
 import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
@@ -15,6 +17,19 @@ import EmailIcon from "@mui/icons-material/Email";
 const Navbar = () => {
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
+  const [destinations, setDestinations] = useState([]);
+
+  useEffect(() => {
+    const fetchDestinations = async () => {
+      try {
+        const res = await axios.get(`${config.API_URL}/api/tours`);
+        setDestinations(res.data);
+      } catch (err) {
+        console.error("Error fetching destinations", err);
+      }
+    };
+    fetchDestinations();
+  }, []);
 
   return (
     <>
@@ -73,15 +88,16 @@ const Navbar = () => {
             </button>
             {dropdownOpen && (
               <div className="absolute mt-2 w-40 bg-white border border-gray-200 shadow-lg rounded z-[1000]">
-                <Link to="/destinations/Darjeeling" className="block px-4 py-2 text-gray-700 hover:bg-gray-100">
-                  Darjeeling
-                </Link>
-                <Link to="/destinations/Kalimpong" className="block px-4 py-2 text-gray-700 hover:bg-gray-100">
-                  Kalimpong
-                </Link>
-                <Link to="/destinations/Sikkim" className="block px-4 py-2 text-gray-700 hover:bg-gray-100">
-                  Sikkim
-                </Link>
+                {destinations.map((dest) => (
+                  <Link
+                    key={dest._id}
+                    to={`/destinations/${dest.title}`}
+                    className="block px-4 py-2 text-gray-700 hover:bg-gray-100"
+                    onClick={() => setDropdownOpen(false)}
+                  >
+                    {dest.title}
+                  </Link>
+                ))}
               </div>
             )}
           </div>
@@ -111,15 +127,19 @@ const Navbar = () => {
             </button>
             {dropdownOpen && (
               <div className="flex flex-col pl-4 space-y-2">
-                <Link to="/destinations/Darjeeling" className="text-gray-700 hover:text-blue-600" onClick={() => setMobileOpen(false)}>
-                  Darjeeling
-                </Link>
-                <Link to="/destinations/Kalimpong" className="text-gray-700 hover:text-blue-600" onClick={() => setMobileOpen(false)}>
-                  Kalimpong
-                </Link>
-                <Link to="/destinations/Sikkim" className="text-gray-700 hover:text-blue-600" onClick={() => setMobileOpen(false)}>
-                  Sikkim
-                </Link>
+                {destinations.map((dest) => (
+                  <Link
+                    key={dest._id}
+                    to={`/destinations/${dest.title}`}
+                    className="text-gray-700 hover:text-blue-600"
+                    onClick={() => {
+                      setMobileOpen(false);
+                      setDropdownOpen(false);
+                    }}
+                  >
+                    {dest.title}
+                  </Link>
+                ))}
               </div>
             )}
 

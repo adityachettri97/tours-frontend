@@ -7,7 +7,6 @@ import PackageSection from "../components/PackageSection";
 import Testimonials from "../components/Testimonials";
 import Blog from "../components/Blog";
 import Footer from "../components/Footer";
-import ChatWidget from "../components/ChatWidget";
 
 const Home = () => {
   return (
@@ -30,8 +29,6 @@ const Home = () => {
 
       {/* Footer */}
       <Footer />
-
-      <ChatWidget />
     </div>
   );
 };

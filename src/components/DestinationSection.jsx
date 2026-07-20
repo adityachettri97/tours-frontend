@@ -7,6 +7,7 @@ import "swiper/css/effect-coverflow";
 import "swiper/css/pagination";
 import { Link } from "react-router-dom";
 import config from "../config";
+import getImageUrl from "../utils/getImageUrl";
 
 const DestinationSection = () => {
   const [tours, setTours] = useState([]);
@@ -57,11 +58,7 @@ const DestinationSection = () => {
             >
               {(Array.isArray(tour.imageUrls) ? tour.imageUrls : [tour.imageUrls]).map((url, index) => (
                 <SwiperSlide key={index}>
-                  <img
-                    src={url?.startsWith("http") ? url : `${config.API_URL}${url}`}
-                    alt={`${tour.title}-${index}`}
-                    className="w-full h-60 object-cover rounded"
-                  />
+                  <img src={getImageUrl(url)} alt={`${tour.title}-${index}`} className="w-full h-60 object-cover rounded" />
                 </SwiperSlide>
               ))}
               {/* {(tour.imageUrls || []).map((url, index) => (

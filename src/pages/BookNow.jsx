@@ -3,6 +3,9 @@ import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import axios from "axios";
 import config from "../config";
+import PhoneIcon from "@mui/icons-material/Phone";
+import EmailIcon from "@mui/icons-material/Email";
+import ScheduleIcon from "@mui/icons-material/Schedule";
 
 const BookNow = () => {
   const [formData, setFormData] = useState({
@@ -101,7 +104,7 @@ const BookNow = () => {
         <div className="bg-blue-600 text-white py-32 mt-16">
           <div className="max-w-6xl mx-auto px-6">
             <h1 className="text-5xl font-bold mb-4">Book Your Dream Vacation</h1>
-            <p className="text-xl">Start your journey with Wanderlust Tours today!</p>
+            <p className="text-xl">Start your journey with TravelPeak today!</p>
           </div>
         </div>
 
@@ -408,17 +411,17 @@ const BookNow = () => {
           {/* Info Cards */}
           <div className="grid md:grid-cols-3 gap-6 mt-12">
             <div className="bg-white p-6 rounded-xl shadow-md text-center">
-              <div className="text-4xl mb-3">📞</div>
+              <PhoneIcon className="text-blue-600 mb-3" style={{ fontSize: 40 }} />
               <h3 className="font-bold mb-2">Call Us</h3>
               <p className="text-gray-600 text-sm">+1 (555) 123-4567</p>
             </div>
             <div className="bg-white p-6 rounded-xl shadow-md text-center">
-              <div className="text-4xl mb-3">✉️</div>
+              <EmailIcon className="text-blue-600 mb-3" style={{ fontSize: 40 }} />
               <h3 className="font-bold mb-2">Email Us</h3>
-              <p className="text-gray-600 text-sm">info@wanderlusttours.com</p>
+              <p className="text-gray-600 text-sm">info@travelpeak.com</p>
             </div>
             <div className="bg-white p-6 rounded-xl shadow-md text-center">
-              <div className="text-4xl mb-3">🕐</div>
+              <ScheduleIcon className="text-blue-600 mb-3" style={{ fontSize: 40 }} />
               <h3 className="font-bold mb-2">Working Hours</h3>
               <p className="text-gray-600 text-sm">Mon-Sat: 9AM - 6PM</p>
             </div>

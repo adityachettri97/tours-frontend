@@ -1,9 +1,39 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import axios from "axios";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import AboutUS from "../images/Darjeeling3.jpeg";
+import config from "../config";
+import getImageUrl from "../utils/getImageUrl";
+import PublicIcon from "@mui/icons-material/Public";
+import AutoAwesomeIcon from "@mui/icons-material/AutoAwesome";
+import ShieldIcon from "@mui/icons-material/Shield";
+
+const defaultDescription = `At TravelPeak, we believe travel is more than just visiting new places – it's about
+creating unforgettable experiences. Founded with a passion for exploration, our mission is to help you discover the world with
+comfort, safety, and joy.
+
+Whether you're dreaming of a luxury beach escape, a cultural city tour, or an adventure in the mountains, our curated packages ensure
+every journey is special. Thousands of happy travelers trust us each year to make their trips memorable.`;
 
 const AboutPage = () => {
+  const [about, setAbout] = useState({ description: defaultDescription, imageUrl: "" });
+
+  useEffect(() => {
+    const fetchAbout = async () => {
+      try {
+        const res = await axios.get(`${config.API_URL}/api/about`);
+        setAbout({
+          description: res.data.description || defaultDescription,
+          imageUrl: res.data.imageUrl || "",
+        });
+      } catch (err) {
+        console.error("Error fetching about content", err);
+      }
+    };
+    fetchAbout();
+  }, []);
+
   return (
     <>
       <Navbar />
@@ -11,7 +41,7 @@ const AboutPage = () => {
         {/* Hero Section */}
         <div className="bg-blue-600 text-white py-32 mt-16">
           <div className="max-w-6xl mx-auto px-6">
-            <h1 className="text-5xl font-bold mb-4">About Wanderlust Tours</h1>
+            <h1 className="text-5xl font-bold mb-4">About TravelPeak</h1>
             <p className="text-xl">Your Gateway to Unforgettable Adventures</p>
           </div>
         </div>
@@ -21,23 +51,19 @@ const AboutPage = () => {
           <div className="grid md:grid-cols-2 gap-12 items-center mb-16">
             <div>
               <img
-                src={AboutUS}
-                alt="About Wanderlust Tours"
+                src={about.imageUrl ? getImageUrl(about.imageUrl) : AboutUS}
+                alt="About TravelPeak"
                 className="w-full h-96 object-cover rounded-2xl "
                 style={{ boxShadow: "0 20px 60px rgba(0,0,0,0.6)" }}
               />
             </div>
             <div>
               <h2 className="text-3xl font-bold mb-6">Our Story</h2>
-              <p className="text-gray-700 mb-4">
-                At <span className="font-semibold">Wanderlust Tours</span>, we believe travel is more than just visiting new places – it's about
-                creating unforgettable experiences. Founded with a passion for exploration, our mission is to help you discover the world with
-                comfort, safety, and joy.
-              </p>
-              <p className="text-gray-700 mb-4">
-                Whether you're dreaming of a luxury beach escape, a cultural city tour, or an adventure in the mountains, our curated packages ensure
-                every journey is special. Thousands of happy travelers trust us each year to make their trips memorable.
-              </p>
+              {about.description.split("\n\n").map((paragraph, i) => (
+                <p key={i} className="text-gray-700 mb-4">
+                  {paragraph}
+                </p>
+              ))}
             </div>
           </div>
 
@@ -61,20 +87,20 @@ const AboutPage = () => {
 
           {/* Why Choose Us */}
           <div className="mb-16">
-            <h2 className="text-3xl font-bold mb-8 text-center">Why Choose Wanderlust Tours?</h2>
+            <h2 className="text-3xl font-bold mb-8 text-center">Why Choose TravelPeak?</h2>
             <div className="grid md:grid-cols-3 gap-8">
               <div className="bg-white p-6 rounded-xl shadow-md text-center">
-                <div className="text-4xl mb-4">🌍</div>
+                <PublicIcon className="text-blue-600 mb-4" style={{ fontSize: 40 }} />
                 <h3 className="text-xl font-bold mb-3">Expert Guidance</h3>
                 <p className="text-gray-700">Our experienced travel experts ensure every detail is perfect, from planning to execution.</p>
               </div>
               <div className="bg-white p-6 rounded-xl shadow-md text-center">
-                <div className="text-4xl mb-4">✨</div>
+                <AutoAwesomeIcon className="text-blue-600 mb-4" style={{ fontSize: 40 }} />
                 <h3 className="text-xl font-bold mb-3">Curated Experiences</h3>
                 <p className="text-gray-700">Handpicked destinations and activities designed to create lasting memories.</p>
               </div>
               <div className="bg-white p-6 rounded-xl shadow-md text-center">
-                <div className="text-4xl mb-4">🛡️</div>
+                <ShieldIcon className="text-blue-600 mb-4" style={{ fontSize: 40 }} />
                 <h3 className="text-xl font-bold mb-3">Safe & Reliable</h3>
                 <p className="text-gray-700">Your safety and comfort are our top priorities, with 24/7 support available.</p>
               </div>

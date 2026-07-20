@@ -14,6 +14,9 @@ import Sikkim1 from "../images/sikkim1.jpeg";
 import Sikkim2 from "../images/sikkim2.jpeg";
 import Sikkim3 from "../images/sikkim3.jpeg";
 import Sikkim4 from "../images/sikkim4.jpeg";
+import CalendarMonthIcon from "@mui/icons-material/CalendarMonth";
+import AccessTimeIcon from "@mui/icons-material/AccessTime";
+import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 
 const Destinations = () => {
   const { destination } = useParams();
@@ -114,11 +117,15 @@ const Destinations = () => {
 
                   <div className="grid md:grid-cols-2 gap-4 mb-6">
                     <div className="bg-white p-4 rounded-lg shadow-md">
-                      <h4 className="font-semibold text-gray-800 mb-2">🗓️ Best Time to Visit</h4>
+                      <h4 className="font-semibold text-gray-800 mb-2 flex items-center gap-1">
+                        <CalendarMonthIcon fontSize="small" /> Best Time to Visit
+                      </h4>
                       <p className="text-gray-600">{dest.bestTime}</p>
                     </div>
                     <div className="bg-white p-4 rounded-lg shadow-md">
-                      <h4 className="font-semibold text-gray-800 mb-2">⏱️ Recommended Duration</h4>
+                      <h4 className="font-semibold text-gray-800 mb-2 flex items-center gap-1">
+                        <AccessTimeIcon fontSize="small" /> Recommended Duration
+                      </h4>
                       <p className="text-gray-600">{dest.duration}</p>
                     </div>
                   </div>
@@ -138,7 +145,7 @@ const Destinations = () => {
                 <div className="grid md:grid-cols-3 gap-4">
                   {dest.highlights.map((highlight, index) => (
                     <div key={index} className="flex items-center space-x-3 bg-gray-50 p-4 rounded-lg">
-                      <span className="text-blue-600 text-2xl">✓</span>
+                      <CheckCircleIcon className="text-blue-600" fontSize="medium" />
                       <span className="text-gray-700 font-medium">{highlight}</span>
                     </div>
                   ))}

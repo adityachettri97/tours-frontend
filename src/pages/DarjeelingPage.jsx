@@ -6,6 +6,13 @@ import Darjeeling1 from "../images/Darjeeling1.jpeg";
 import Darjeeling2 from "../images/Darjeeling2.jpeg";
 import Darjeeling3 from "../images/Darjeeling3.jpeg";
 import Darjeeling4 from "../images/Darjeeling4.jpeg";
+import CalendarMonthIcon from "@mui/icons-material/CalendarMonth";
+import AccessTimeIcon from "@mui/icons-material/AccessTime";
+import CheckCircleIcon from "@mui/icons-material/CheckCircle";
+import FlightIcon from "@mui/icons-material/Flight";
+import TrainIcon from "@mui/icons-material/Train";
+import DirectionsCarIcon from "@mui/icons-material/DirectionsCar";
+import FiberManualRecordIcon from "@mui/icons-material/FiberManualRecord";
 
 const DarjeelingPage = () => {
   const navigate = useNavigate();
@@ -66,11 +73,15 @@ const DarjeelingPage = () => {
 
               <div className="grid md:grid-cols-2 gap-4 mb-6">
                 <div className="bg-white p-4 rounded-lg shadow-md">
-                  <h4 className="font-semibold text-gray-800 mb-2">🗓️ Best Time to Visit</h4>
+                  <h4 className="font-semibold text-gray-800 mb-2 flex items-center gap-1">
+                    <CalendarMonthIcon fontSize="small" /> Best Time to Visit
+                  </h4>
                   <p className="text-gray-600">{destination.bestTime}</p>
                 </div>
                 <div className="bg-white p-4 rounded-lg shadow-md">
-                  <h4 className="font-semibold text-gray-800 mb-2">⏱️ Recommended Duration</h4>
+                  <h4 className="font-semibold text-gray-800 mb-2 flex items-center gap-1">
+                    <AccessTimeIcon fontSize="small" /> Recommended Duration
+                  </h4>
                   <p className="text-gray-600">{destination.duration}</p>
                 </div>
               </div>
@@ -90,7 +101,7 @@ const DarjeelingPage = () => {
             <div className="grid md:grid-cols-3 gap-4">
               {destination.highlights.map((highlight, index) => (
                 <div key={index} className="flex items-center space-x-3 bg-gray-50 p-4 rounded-lg">
-                  <span className="text-blue-600 text-2xl">✓</span>
+                  <CheckCircleIcon className="text-blue-600" fontSize="medium" />
                   <span className="text-gray-700 font-medium">{highlight}</span>
                 </div>
               ))}
@@ -103,19 +114,19 @@ const DarjeelingPage = () => {
               <h3 className="text-xl font-bold text-gray-800 mb-4">How to Reach</h3>
               <ul className="space-y-3 text-gray-700">
                 <li className="flex items-start">
-                  <span className="text-blue-600 mr-2">✈️</span>
+                  <FlightIcon className="text-blue-600 mr-2" fontSize="small" />
                   <span>
                     <strong>By Air:</strong> Bagdogra Airport (95 km)
                   </span>
                 </li>
                 <li className="flex items-start">
-                  <span className="text-blue-600 mr-2">🚂</span>
+                  <TrainIcon className="text-blue-600 mr-2" fontSize="small" />
                   <span>
                     <strong>By Train:</strong> New Jalpaiguri Railway Station (88 km)
                   </span>
                 </li>
                 <li className="flex items-start">
-                  <span className="text-blue-600 mr-2">🚗</span>
+                  <DirectionsCarIcon className="text-blue-600 mr-2" fontSize="small" />
                   <span>
                     <strong>By Road:</strong> Well connected by road from major cities
                   </span>
@@ -127,19 +138,19 @@ const DarjeelingPage = () => {
               <h3 className="text-xl font-bold text-gray-800 mb-4">What to Pack</h3>
               <ul className="space-y-2 text-gray-700">
                 <li className="flex items-start">
-                  <span className="text-blue-600 mr-2">•</span>
+                  <FiberManualRecordIcon className="text-blue-600 mr-2" style={{ fontSize: 10, marginTop: 6 }} />
                   <span>Warm clothing (especially for early mornings)</span>
                 </li>
                 <li className="flex items-start">
-                  <span className="text-blue-600 mr-2">•</span>
+                  <FiberManualRecordIcon className="text-blue-600 mr-2" style={{ fontSize: 10, marginTop: 6 }} />
                   <span>Comfortable walking shoes</span>
                 </li>
                 <li className="flex items-start">
-                  <span className="text-blue-600 mr-2">•</span>
+                  <FiberManualRecordIcon className="text-blue-600 mr-2" style={{ fontSize: 10, marginTop: 6 }} />
                   <span>Sunscreen and sunglasses</span>
                 </li>
                 <li className="flex items-start">
-                  <span className="text-blue-600 mr-2">•</span>
+                  <FiberManualRecordIcon className="text-blue-600 mr-2" style={{ fontSize: 10, marginTop: 6 }} />
                   <span>Camera for capturing scenic views</span>
                 </li>
               </ul>

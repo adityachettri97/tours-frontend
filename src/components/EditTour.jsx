@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import axios from "axios";
 import config from "../config";
+import getImageUrl from "../utils/getImageUrl";
 
 const EditTour = () => {
   const { id } = useParams();
@@ -49,7 +50,10 @@ const EditTour = () => {
 
     try {
       await axios.put(`${config.API_URL}/api/tours/${id}`, formData, {
-        headers: { "Content-Type": "multipart/form-data" },
+        headers: {
+          "Content-Type": "multipart/form-data",
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
       });
       navigate("/tours");
     } catch (err) {
@@ -93,7 +97,7 @@ const EditTour = () => {
           ) : (
             existingImageUrls.map((url, index) => (
               <div key={index} className="flex items-center mb-3">
-                <img src={`${config.API_URL}${url}`} alt="tour" className="w-24 h-30 object-cover mr-4 rounded border" />
+                <img src={getImageUrl(url)} alt="tour" className="w-24 h-30 object-cover mr-4 rounded border" />
                 <button type="button" onClick={() => removeExistingImage(url)} className="text-red-600 hover:text-red-800">
                   Remove
                 </button>
