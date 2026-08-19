@@ -14,6 +14,7 @@ import BlogImg2 from "../images/Kalimpong2.jpeg";
 import BlogImg3 from "../images/sikkim2.jpeg";
 import Blog from "../images/Sikkim.jpg";
 import Footer from "../components/Footer";
+import Reveal from "../components/Reveal";
 import config from "../config";
 import getImageUrl from "../utils/getImageUrl";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
@@ -95,28 +96,41 @@ const BlogPage = () => {
 
       <section className="pt-44 px-6 bg-gray-50">
         <div className="max-w-screen-2xl mx-auto">
-          <h1 className="text-4xl font-bold text-center mb-12">Our Blog</h1>
+          <Reveal as="h1" className="text-4xl font-bold text-center mb-12">
+            Our Blog
+          </Reveal>
 
           {/* Grid */}
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {blogs.map((blog) => (
-              <div
+            {blogs.map((blog, i) => (
+              <Reveal
                 key={blog.id || blog.slug}
-                className="bg-white rounded-2xl shadow-md overflow-hidden hover:shadow-xl transition-shadow duration-300 w-full"
+                delay={(i % 3) * 120}
+                className="group bg-white rounded-2xl shadow-md overflow-hidden transition-all duration-300 hover:shadow-premium hover:-translate-y-2 w-full"
               >
                 {/* Image */}
-                <img src={blog.image} alt={blog.title} className="w-full h-48 object-cover" />
+                <div className="overflow-hidden">
+                  <img
+                    src={blog.image}
+                    alt={blog.title}
+                    className="w-full h-48 object-cover transition-transform duration-500 group-hover:scale-110"
+                  />
+                </div>
 
                 {/* Content */}
                 <div className="p-6">
-                  <h2 className="text-xl font-semibold mb-2">{blog.title}</h2>
+                  <h2 className="text-xl font-semibold mb-2 transition-colors duration-300 group-hover:text-blue-600">{blog.title}</h2>
                   <p className="text-gray-500 text-sm mb-4">{blog.date}</p>
                   <p className="text-gray-700 mb-4">{blog.content.length > 120 ? blog.content.slice(0, 120) + "..." : blog.content}</p>
-                  <a href={blog.href || `/blogPage/${blog.slug}`} className="text-blue-600 hover:underline font-medium inline-flex items-center gap-1">
-                    Read More <ArrowForwardIcon fontSize="small" />
+                  <a
+                    href={blog.href || `/blogPage/${blog.slug}`}
+                    className="text-blue-600 hover:underline font-medium inline-flex items-center gap-1 group/link"
+                  >
+                    Read More
+                    <ArrowForwardIcon fontSize="small" className="transition-transform duration-300 group-hover/link:translate-x-1" />
                   </a>
                 </div>
-              </div>
+              </Reveal>
             ))}
           </div>
         </div>

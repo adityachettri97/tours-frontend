@@ -3,6 +3,7 @@ import { useParams, useNavigate } from "react-router-dom";
 import axios from "axios";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
+import Reveal from "../components/Reveal";
 import config from "../config";
 import getImageUrl from "../utils/getImageUrl";
 
@@ -49,7 +50,10 @@ const DestinationDetail = () => {
         <Navbar />
         <div className="min-h-screen flex flex-col items-center justify-center gap-4">
           <p className="text-gray-600 text-lg">Destination not found.</p>
-          <button onClick={() => navigate("/")} className="bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700 transition">
+          <button
+            onClick={() => navigate("/")}
+            className="bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700 transition-all duration-300 hover:-translate-y-0.5 hover:shadow-glow active:translate-y-0"
+          >
             Back to Home
           </button>
         </div>
@@ -67,7 +71,7 @@ const DestinationDetail = () => {
         {/* Hero Section */}
         <div className="bg-gradient-to-r from-blue-600 to-blue-800 text-white py-32 mt-16">
           <div className="max-w-6xl mx-auto px-6 text-center">
-            <h1 className="text-5xl font-bold mb-4">{tour.title}</h1>
+            <h1 className="text-5xl font-bold mb-4 animate-fade-in-up">{tour.title}</h1>
           </div>
         </div>
 
@@ -76,45 +80,46 @@ const DestinationDetail = () => {
           <div className="grid lg:grid-cols-2 gap-12 mb-12">
             {/* Image Gallery */}
             {images.length > 0 && (
-              <div className="grid grid-cols-2 gap-4">
+              <Reveal className="grid grid-cols-2 gap-4">
                 {images.map((img, index) => (
-                  <img
-                    key={index}
-                    src={img}
-                    alt={`${tour.title} ${index + 1}`}
-                    className={`rounded-lg shadow-lg object-cover ${index === 0 ? "col-span-2 h-80" : "h-48"}`}
-                  />
+                  <div key={index} className={`overflow-hidden rounded-lg shadow-lg ${index === 0 ? "col-span-2 h-80" : "h-48"}`}>
+                    <img
+                      src={img}
+                      alt={`${tour.title} ${index + 1}`}
+                      className="w-full h-full object-cover transition-transform duration-500 hover:scale-110"
+                    />
+                  </div>
                 ))}
-              </div>
+              </Reveal>
             )}
 
             {/* Description */}
-            <div className="flex flex-col justify-center">
+            <Reveal delay={150} className="flex flex-col justify-center">
               <h2 className="text-3xl font-bold text-gray-800 mb-6">About {tour.title}</h2>
               <p className="text-gray-700 text-lg mb-6 leading-relaxed whitespace-pre-line">{tour.description}</p>
 
               <button
                 onClick={handleBookNow}
-                className="bg-blue-600 text-white px-8 py-4 rounded-lg hover:bg-blue-700 transition text-lg font-semibold shadow-lg hover:shadow-xl transform hover:-translate-y-1 self-start"
+                className="bg-blue-600 text-white px-8 py-4 rounded-lg hover:bg-blue-700 transition-all duration-300 text-lg font-semibold shadow-lg hover:shadow-glow transform hover:-translate-y-1 active:translate-y-0 self-start"
               >
                 Book Now
               </button>
-            </div>
+            </Reveal>
           </div>
         </div>
 
         {/* Call to Action */}
         <div className="bg-blue-600 text-white py-16">
-          <div className="max-w-4xl mx-auto px-6 text-center">
+          <Reveal className="max-w-4xl mx-auto px-6 text-center">
             <h2 className="text-3xl font-bold mb-4">Ready to Explore {tour.title}?</h2>
             <p className="text-lg mb-8">Book your {tour.title} tour package today and create unforgettable memories</p>
             <button
               onClick={handleBookNow}
-              className="bg-white text-blue-600 px-8 py-4 rounded-lg hover:bg-gray-100 transition text-lg font-semibold"
+              className="bg-white text-blue-600 px-8 py-4 rounded-lg hover:bg-gray-100 transition-all duration-300 text-lg font-semibold hover:-translate-y-1 hover:shadow-xl active:translate-y-0"
             >
               Book Your Trip Now
             </button>
-          </div>
+          </Reveal>
         </div>
       </div>
       <Footer />

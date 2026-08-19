@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import config from "../config";
+import Reveal from "./Reveal";
 
 const fallbackPosts = [
   {
@@ -43,18 +44,27 @@ const Blog = () => {
 
   return (
     <section className="py-12 px-4 bg-gray-50">
-      <h2 className="text-3xl font-bold text-center mb-8">Latest from Our Blog</h2>
+      <Reveal>
+        <h2 className="text-3xl font-bold text-center mb-8">Latest from Our Blog</h2>
+      </Reveal>
       <div className="grid md:grid-cols-2 gap-8 max-w-5xl mx-auto">
-        {posts.map((post) => (
-          <div key={post.id}>
-            <h3 className="text-xl font-semibold mb-2">{post.title}</h3>
+        {posts.map((post, i) => (
+          <Reveal
+            key={post.id}
+            delay={(i % 2) * 150}
+            className="group bg-white p-6 rounded-2xl shadow-sm transition-all duration-300 hover:shadow-premium hover:-translate-y-1"
+          >
+            <h3 className="text-xl font-semibold mb-2 transition-colors duration-300 group-hover:text-blue-600">{post.title}</h3>
             <p className="text-gray-700 mb-2">
               {post.description.length > 100 ? post.description.slice(0, 100) + "..." : post.description}
             </p>
-            <a href={post.href} className="text-blue-600 hover:underline">
-              Read More
+            <a href={post.href} className="inline-flex items-center gap-1 text-blue-600 font-medium group/link">
+              <span className="relative after:content-[''] after:absolute after:left-0 after:-bottom-0.5 after:h-px after:w-full after:bg-blue-600 after:scale-x-0 after:origin-left after:transition-transform after:duration-300 group-hover/link:after:scale-x-100">
+                Read More
+              </span>
+              <span className="transition-transform duration-300 group-hover/link:translate-x-1">→</span>
             </a>
-          </div>
+          </Reveal>
         ))}
       </div>
     </section>

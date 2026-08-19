@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import AboutUS from "../images/Darjeeling3.jpeg";
 import config from "../config";
 import getImageUrl from "../utils/getImageUrl";
+import Reveal from "./Reveal";
 
 const defaultTitle = "About TravelPeak";
 const defaultDescription = `At TravelPeak, we believe travel is more than just visiting new places – it's about creating
@@ -36,24 +37,27 @@ const AboutSection = () => {
     <section className="py-16 px-6 bg-white">
       <div className="max-w-6xl mx-auto grid md:grid-cols-2 gap-12 items-center">
         {/* Left Image */}
-        <div>
+        <Reveal className="overflow-hidden rounded-2xl shadow-premium">
           <img
             src={about.imageUrl ? getImageUrl(about.imageUrl) : AboutUS}
             alt={about.title}
-            className="w-full h-100 object-cover rounded-2xl shadow-lg"
+            className="w-full h-100 object-cover transition-transform duration-700 ease-out hover:scale-110"
           />
-        </div>
+        </Reveal>
 
         {/* Right Content */}
-        <div>
+        <Reveal delay={150}>
           <h2 className="text-3xl font-bold mb-4">{about.title}</h2>
           <p className="text-gray-700 mb-4">
             {about.description.length > 200 ? about.description.slice(0, 200) + "..." : about.description}
           </p>
-          <button onClick={() => navigate("/about")} className="bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700 transition">
+          <button
+            onClick={() => navigate("/about")}
+            className="bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700 transition-all duration-300 hover:-translate-y-0.5 hover:shadow-glow active:translate-y-0"
+          >
             Learn More
           </button>
-        </div>
+        </Reveal>
       </div>
     </section>
   );

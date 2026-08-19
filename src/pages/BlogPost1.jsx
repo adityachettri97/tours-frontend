@@ -1,6 +1,7 @@
 import React from "react";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
+import Reveal from "../components/Reveal";
 import BlogImg1 from "../images/Darjeeling2.jpeg";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 
@@ -9,12 +10,14 @@ const BlogPost1 = () => {
     <>
       <Navbar />
       <div className="pt-36 bg-gray-50 min-h-screen">
-        <div className="max-w-3xl mx-auto px-6 py-12">
-          <img
-            src={BlogImg1}
-            alt="First-Time Travelers"
-            className="w-full h-72 object-cover rounded-2xl mb-8 shadow-md"
-          />
+        <Reveal className="max-w-3xl mx-auto px-6 py-12" as="div">
+          <div className="overflow-hidden rounded-2xl mb-8 shadow-md">
+            <img
+              src={BlogImg1}
+              alt="First-Time Travelers"
+              className="w-full h-72 object-cover transition-transform duration-700 hover:scale-105"
+            />
+          </div>
           <p className="text-gray-500 text-sm mb-3">August 20, 2025</p>
           <h1 className="text-4xl font-bold mb-6 text-gray-800">
             Top 10 Tips for First-Time Travelers
@@ -87,12 +90,12 @@ const BlogPost1 = () => {
           <div className="mt-10">
             <a
               href="/blogPage"
-              className="inline-flex items-center gap-1 text-blue-600 hover:underline font-medium text-base"
+              className="group inline-flex items-center gap-1 text-blue-600 hover:underline font-medium text-base"
             >
-              <ArrowBackIcon fontSize="small" /> Back to Blog
+              <ArrowBackIcon fontSize="small" className="transition-transform duration-300 group-hover:-translate-x-1" /> Back to Blog
             </a>
           </div>
-        </div>
+        </Reveal>
       </div>
       <Footer />
     </>

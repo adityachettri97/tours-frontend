@@ -1,11 +1,24 @@
 import React, { useState, useEffect } from "react";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
+import Reveal from "../components/Reveal";
 import axios from "axios";
 import config from "../config";
 import PhoneIcon from "@mui/icons-material/Phone";
 import EmailIcon from "@mui/icons-material/Email";
 import ScheduleIcon from "@mui/icons-material/Schedule";
+import CreditCardIcon from "@mui/icons-material/CreditCard";
+import PaymentIcon from "@mui/icons-material/Payment";
+import QrCode2Icon from "@mui/icons-material/QrCode2";
+import AccountBalanceWalletIcon from "@mui/icons-material/AccountBalanceWallet";
+import CheckCircleIcon from "@mui/icons-material/CheckCircle";
+
+const paymentOptions = [
+  { value: "credit-card", label: "Credit Card", Icon: CreditCardIcon },
+  { value: "debit-card", label: "Debit Card", Icon: PaymentIcon },
+  { value: "upi", label: "UPI", Icon: QrCode2Icon },
+  { value: "paypal", label: "PayPal", Icon: AccountBalanceWalletIcon },
+];
 
 const BookNow = () => {
   const [formData, setFormData] = useState({
@@ -50,6 +63,10 @@ const BookNow = () => {
       ...prev,
       [name]: value,
     }));
+  };
+
+  const selectPaymentMethod = (value) => {
+    setFormData((prev) => ({ ...prev, paymentMethod: value }));
   };
 
   const handleSubmit = async (e) => {
@@ -103,19 +120,21 @@ const BookNow = () => {
         {/* Hero Section */}
         <div className="bg-blue-600 text-white py-32 mt-16">
           <div className="max-w-6xl mx-auto px-6">
-            <h1 className="text-5xl font-bold mb-4">Book Your Dream Vacation</h1>
-            <p className="text-xl">Start your journey with TravelPeak today!</p>
+            <h1 className="text-5xl font-bold mb-4 animate-fade-in-up">Book Your Dream Vacation</h1>
+            <p className="text-xl animate-fade-in-up" style={{ animationDelay: "150ms" }}>
+              Start your journey with TravelPeak today!
+            </p>
           </div>
         </div>
 
         {/* Booking Form */}
         <div className="max-w-4xl mx-auto px-6 py-16">
-          <div className="bg-white rounded-2xl shadow-lg p-8">
+          <Reveal className="bg-white rounded-2xl shadow-lg p-8">
             <h2 className="text-3xl font-bold mb-8 text-center text-gray-800">Complete Your Booking</h2>
 
             {submitStatus && (
               <div
-                className={`mb-6 p-4 rounded-lg ${
+                className={`mb-6 p-4 rounded-lg animate-scale-in ${
                   submitStatus.type === "success"
                     ? "bg-green-100 text-green-800 border border-green-300"
                     : "bg-red-100 text-red-800 border border-red-300"
@@ -278,24 +297,36 @@ const BookNow = () => {
                 <div className="space-y-6">
                   <div>
                     <label className="block text-gray-700 font-medium mb-2">Payment Method *</label>
-                    <select
-                      name="paymentMethod"
-                      value={formData.paymentMethod}
-                      onChange={handleChange}
-                      required
-                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                    >
-                      <option value="">Select payment method</option>
-                      <option value="credit-card">Credit Card</option>
-                      <option value="debit-card">Debit Card</option>
-                      <option value="upi">UPI</option>
-                      <option value="paypal">PayPal</option>
-                    </select>
+                    <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
+                      {paymentOptions.map(({ value, label, Icon }) => {
+                        const selected = formData.paymentMethod === value;
+                        return (
+                          <button
+                            key={value}
+                            type="button"
+                            onClick={() => selectPaymentMethod(value)}
+                            aria-pressed={selected}
+                            className={`relative flex flex-col items-center justify-center gap-2 py-4 px-2 rounded-xl border-2 transition-all duration-300 hover:-translate-y-1 ${
+                              selected
+                                ? "border-blue-600 bg-blue-50 shadow-glow"
+                                : "border-gray-200 bg-white hover:border-blue-300 hover:shadow-md"
+                            }`}
+                          >
+                            {selected && (
+                              <CheckCircleIcon className="absolute -top-2 -right-2 text-blue-600 bg-white rounded-full animate-scale-in" fontSize="small" />
+                            )}
+                            <Icon className={selected ? "text-blue-600" : "text-gray-500"} style={{ fontSize: 28 }} />
+                            <span className={`text-sm font-medium ${selected ? "text-blue-700" : "text-gray-700"}`}>{label}</span>
+                          </button>
+                        );
+                      })}
+                    </div>
+                    {!formData.paymentMethod && <p className="text-xs text-gray-500 mt-2">Please select a payment method to continue.</p>}
                   </div>
 
                   {(formData.paymentMethod === "credit-card" || formData.paymentMethod === "debit-card") && (
                     <>
-                      <div className="grid md:grid-cols-2 gap-6">
+                      <div className="grid md:grid-cols-2 gap-6 animate-fade-in-up">
                         <div className="md:col-span-2">
                           <label className="block text-gray-700 font-medium mb-2">Cardholder Name *</label>
                           <input
@@ -348,7 +379,7 @@ const BookNow = () => {
                           />
                         </div>
                       </div>
-                      <div>
+                      <div className="animate-fade-in-up">
                         <label className="block text-gray-700 font-medium mb-2">Billing Address *</label>
                         <textarea
                           name="billingAddress"
@@ -364,7 +395,7 @@ const BookNow = () => {
                   )}
 
                   {formData.paymentMethod === "upi" && (
-                    <div>
+                    <div className="animate-fade-in-up">
                       <label className="block text-gray-700 font-medium mb-2">UPI ID / VPA *</label>
                       <input
                         type="text"
@@ -383,7 +414,7 @@ const BookNow = () => {
                   )}
 
                   {formData.paymentMethod === "paypal" && (
-                    <div className="bg-blue-50 p-4 rounded-lg border border-blue-200">
+                    <div className="bg-blue-50 p-4 rounded-lg border border-blue-200 animate-fade-in-up">
                       <p className="text-gray-700">You will be redirected to PayPal to complete your payment after submitting this form.</p>
                     </div>
                   )}
@@ -395,8 +426,10 @@ const BookNow = () => {
                 <button
                   type="submit"
                   disabled={loading}
-                  className={`w-full py-4 px-6 rounded-lg text-white font-semibold text-lg transition ${
-                    loading ? "bg-gray-400 cursor-not-allowed" : "bg-blue-600 hover:bg-blue-700"
+                  className={`w-full py-4 px-6 rounded-lg text-white font-semibold text-lg transition-all duration-300 ${
+                    loading
+                      ? "bg-gray-400 cursor-not-allowed"
+                      : "bg-blue-600 hover:bg-blue-700 hover:-translate-y-0.5 hover:shadow-glow active:translate-y-0"
                   }`}
                 >
                   {loading ? "Submitting..." : "Submit Booking Request"}
@@ -406,22 +439,22 @@ const BookNow = () => {
                 </p>
               </div>
             </form>
-          </div>
+          </Reveal>
 
           {/* Info Cards */}
           <div className="grid md:grid-cols-3 gap-6 mt-12">
-            <div className="bg-white p-6 rounded-xl shadow-md text-center">
-              <PhoneIcon className="text-blue-600 mb-3" style={{ fontSize: 40 }} />
+            <div className="bg-white p-6 rounded-xl shadow-md text-center transition-all duration-300 hover:shadow-premium hover:-translate-y-2 group">
+              <PhoneIcon className="text-blue-600 mb-3 transition-transform duration-300 group-hover:scale-125" style={{ fontSize: 40 }} />
               <h3 className="font-bold mb-2">Call Us</h3>
               <p className="text-gray-600 text-sm">+1 (555) 123-4567</p>
             </div>
-            <div className="bg-white p-6 rounded-xl shadow-md text-center">
-              <EmailIcon className="text-blue-600 mb-3" style={{ fontSize: 40 }} />
+            <div className="bg-white p-6 rounded-xl shadow-md text-center transition-all duration-300 hover:shadow-premium hover:-translate-y-2 group">
+              <EmailIcon className="text-blue-600 mb-3 transition-transform duration-300 group-hover:scale-125" style={{ fontSize: 40 }} />
               <h3 className="font-bold mb-2">Email Us</h3>
               <p className="text-gray-600 text-sm">info@travelpeak.com</p>
             </div>
-            <div className="bg-white p-6 rounded-xl shadow-md text-center">
-              <ScheduleIcon className="text-blue-600 mb-3" style={{ fontSize: 40 }} />
+            <div className="bg-white p-6 rounded-xl shadow-md text-center transition-all duration-300 hover:shadow-premium hover:-translate-y-2 group">
+              <ScheduleIcon className="text-blue-600 mb-3 transition-transform duration-300 group-hover:scale-125" style={{ fontSize: 40 }} />
               <h3 className="font-bold mb-2">Working Hours</h3>
               <p className="text-gray-600 text-sm">Mon-Sat: 9AM - 6PM</p>
             </div>

@@ -1,4 +1,5 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, Pagination, Autoplay } from "swiper/modules";
 import "swiper/css";
@@ -11,6 +12,7 @@ import Darjeeling from "../images/Darjeeling.jpg";
 import Sikkim from "../images/Sikkim.jpg";
 
 const HeroCarousel = () => {
+  const navigate = useNavigate();
   const slides = [
     {
       image: Sikkim,
@@ -42,14 +44,21 @@ const HeroCarousel = () => {
       >
         {slides.map((slide, i) => (
           <SwiperSlide key={i}>
-            <div
-              className="relative h-full bg-cover bg-center flex items-center justify-center text-white"
-              style={{ backgroundImage: `url(${slide.image})` }}
-            >
-              <div className="absolute inset-0 bg-black/50" />
-              <div className="relative z-10 text-center px-4">
-                <h1 className="text-4xl md:text-6xl font-bold mb-4">{slide.title}</h1>
-                <p className="text-lg md:text-2xl mb-6">{slide.subtitle}</p>
+            <div className="relative h-full overflow-hidden flex items-center justify-center text-white">
+              <div
+                className="hero-slide-bg absolute inset-0 bg-cover bg-center"
+                style={{ backgroundImage: `url(${slide.image})` }}
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/40 to-black/30" />
+              <div className="hero-text relative z-10 text-center px-4">
+                <h1 className="text-4xl md:text-6xl font-bold mb-4 drop-shadow-lg">{slide.title}</h1>
+                <p className="text-lg md:text-2xl mb-6 drop-shadow">{slide.subtitle}</p>
+                <button
+                  onClick={() => navigate("/book-now")}
+                  className="bg-blue-600 hover:bg-blue-700 text-white font-semibold px-8 py-3 rounded-full shadow-lg transition-all duration-300 hover:scale-105 hover:shadow-glow"
+                >
+                  Explore Now
+                </button>
               </div>
             </div>
           </SwiperSlide>

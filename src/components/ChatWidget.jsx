@@ -174,7 +174,9 @@ const ChatWidget = () => {
       {/* Floating button */}
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className="w-14 h-14 bg-blue-600 hover:bg-blue-700 text-white rounded-full shadow-lg flex items-center justify-center transition-transform hover:scale-105 active:scale-95"
+        className={`w-14 h-14 bg-blue-600 hover:bg-blue-700 text-white rounded-full shadow-lg flex items-center justify-center transition-all duration-300 hover:scale-110 hover:shadow-glow active:scale-95 ${
+          isOpen ? "" : "animate-float"
+        }`}
         aria-label="Open travel assistant chat"
       >
         {isOpen ? <CloseIcon fontSize="medium" /> : <ChatBubbleOutlineIcon fontSize="medium" />}

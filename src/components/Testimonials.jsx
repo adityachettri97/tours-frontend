@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import config from "../config";
+import Reveal from "./Reveal";
 
 const fallbackReviews = [
   {
@@ -43,16 +44,23 @@ const Testimonials = () => {
 
   return (
     <section className="py-16 px-6">
-      <h2 className="text-3xl font-bold text-center mb-10">What Our Travelers Say</h2>
+      <Reveal>
+        <h2 className="text-3xl font-bold text-center mb-10">What Our Travelers Say</h2>
+      </Reveal>
       <div className="grid md:grid-cols-2 gap-8 max-w-5xl mx-auto">
-        {reviews.map((review) => (
-          <div key={review.id} className="bg-gray-50 p-6 rounded-2xl shadow">
-            <p className="text-gray-700 italic mb-4">"{review.quote}"</p>
+        {reviews.map((review, i) => (
+          <Reveal
+            key={review.id}
+            delay={(i % 2) * 150}
+            className="relative bg-gray-50 p-6 rounded-2xl shadow transition-all duration-300 hover:shadow-premium hover:-translate-y-1"
+          >
+            <span className="absolute top-2 left-4 text-6xl text-blue-100 font-serif select-none leading-none">"</span>
+            <p className="relative text-gray-700 italic mb-4">"{review.quote}"</p>
             <h4 className="font-semibold">
               — {review.name}
               {review.location ? `, ${review.location}` : ""}
             </h4>
-          </div>
+          </Reveal>
         ))}
       </div>
     </section>

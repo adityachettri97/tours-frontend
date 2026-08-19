@@ -8,6 +8,7 @@ import "swiper/css/pagination";
 import { Link } from "react-router-dom";
 import config from "../config";
 import getImageUrl from "../utils/getImageUrl";
+import Reveal from "./Reveal";
 
 const DestinationSection = () => {
   const [tours, setTours] = useState([]);
@@ -26,14 +27,20 @@ const DestinationSection = () => {
 
   return (
     <section className="px-4 py-10 bg-white">
-      <h2 className="text-3xl font-bold text-center mb-10">Popular Destinations</h2>
+      <Reveal>
+        <h2 className="text-3xl font-bold text-center mb-10">Popular Destinations</h2>
+      </Reveal>
 
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
-        {tours.map((tour) => {
+        {tours.map((tour, idx) => {
           const images = (Array.isArray(tour.imageUrls) ? tour.imageUrls : tour.imageUrls ? [tour.imageUrls] : []).filter(Boolean);
 
           return (
-          <div key={tour._id} className="bg-gray-100 rounded-lg shadow-lg p-4">
+          <Reveal
+            key={tour._id}
+            delay={(idx % 3) * 120}
+            className="bg-gray-100 rounded-lg shadow-lg p-4 transition-all duration-300 hover:shadow-premium hover:-translate-y-2"
+          >
             {/* Slider for each tour */}
             {images.length > 0 && (
               <Swiper
@@ -63,7 +70,13 @@ const DestinationSection = () => {
               >
                 {images.map((url, index) => (
                   <SwiperSlide key={index}>
-                    <img src={getImageUrl(url)} alt={`${tour.title}-${index}`} className="w-full h-60 object-cover rounded" />
+                    <div className="w-full h-60 overflow-hidden rounded">
+                      <img
+                        src={getImageUrl(url)}
+                        alt={`${tour.title}-${index}`}
+                        className="w-full h-60 object-cover transition-transform duration-500 hover:scale-110"
+                      />
+                    </div>
                   </SwiperSlide>
                 ))}
               </Swiper>
@@ -86,7 +99,7 @@ const DestinationSection = () => {
                 {tour.description.length > 100 ? tour.description.slice(0, 100) + "..." : tour.description}
               </p>
             </div> */}
-          </div>
+          </Reveal>
           );
         })}
       </div>
